@@ -2,4 +2,5 @@
 
 int main(){
     printf("Xin chao");
+    printf("Xin chao");
 }
