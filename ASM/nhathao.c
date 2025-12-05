@@ -133,6 +133,26 @@ void chucnang5(){
         }
     }
 }
+
+void chucnang6(){
+    double soTienVay;
+    double laiSuat = 0.05;     // 5% mỗi tháng
+    int kyHan = 12;
+    printf("Nhap so tien muon vay: ");
+    scanf("%lf", &soTienVay);
+    double gocMoiThang = soTienVay / kyHan;
+    double soDu = soTienVay;
+    printf("\n%-6s %-15s %-15s %-18s %-15s\n",
+           "Thang", "Lai phai tra", "Goc phai tra", "Tong tien phai tra", "So du con lai");
+    for (int thang = 1; thang <= kyHan; thang++) {
+        double lai = soDu * laiSuat;
+        double tong = lai + gocMoiThang;
+        soDu -= gocMoiThang;
+        printf("%-6d %-15.0f %-15.0f %-18.0f %-15.0f\n",
+                thang, lai, gocMoiThang, tong, soDu);
+    }
+}
+
 int main(){
     int choice;
     do{
@@ -170,8 +190,8 @@ int main(){
                 chucnang5();
                 break;
             case 6:
-            printf("Ban da chon chuc nang 6");
-            break;
+                chucnang6();
+                break;
             case 7:
             printf("Ban da chon chuc nang 7");
             break;
