@@ -1,5 +1,8 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<math.h>
+#include<string.h>
+#include<time.h>
 
 void chucnang1(){
     int x,i,count=0;
@@ -153,6 +156,145 @@ void chucnang6(){
     }
 }
 
+void chucnang7(){
+    double tienduocvay = 500000000; //500 trieu
+    double laisuat = 0.15; //15%/nam
+    double r = laisuat / 12; //lai suat thang
+    int year = 24;
+    int n = year * 12; //tong so thang
+    double phantramvay; //phan tram vay
+    double P; //so tien vay thuc te
+    //nhap vao
+    printf("Hay nhap so phan tram vay toi da:");
+    scanf("%lf",&phantramvay);
+    //tinh tien vay
+    P = tienduocvay * (phantramvay / 100.0);
+    //cong thuc tinh tien tra hang thang 
+    double tientrahangthang = P * r / (1 - pow(1 + r, -n));
+    //xuat ra
+    printf("Tien phai tra lan dau: %.0f VND\n",tientrahangthang);
+    printf("Tien phai tra hang thang: %.0f VND\n",tientrahangthang);
+}
+
+typedef struct {
+    char mssv[50];
+    char hoten[50];
+    float diem;
+    char hocluc[20];
+}SinhVien;
+
+void xepLoaiSV(float d, char *hl) {
+    if (d > 10) {
+        strcpy(hl, "Nhap lai");
+    }
+    else if (d >= 9) {
+        strcpy(hl, "Xuat sac");
+    }
+    else if (d >= 8 && d < 9) {
+        strcpy(hl, "Gioi");
+    }
+    else if (d >= 7 && d < 8) {
+        strcpy(hl, "Kha");
+    }
+    else if (d >= 5 && d < 7) {
+        strcpy(hl, "Trung binh");
+    }
+    else {
+        strcpy(hl, "Yeu");
+    }
+}
+
+void chucnang8() {
+    int n;
+    printf("Hay nhap so sinh vien:");
+    scanf("%d", &n);
+    getchar();
+    SinhVien sv[50];
+    for (int i = 0; i < n; i++){
+        printf("Hay nhap ma so sinh vien:");
+        gets(sv[i].mssv);
+        printf("Hay nhap ho va ten:");
+        gets(sv[i].hoten);
+        sv[i].hoten[strcspn(sv[i].hoten, "\n")] = 0;
+        printf("Hay nhap diem:");
+        scanf("%f",&sv[i].diem);
+        getchar();
+        xepLoaiSV(sv[i].diem, sv[i].hocluc);
+    }
+    // Sắp xếp giảm dần
+    for (int i = 0; i < n - 1; i++)
+        for (int j = i + 1; j < n; j++)
+            if (sv[i].diem < sv[j].diem) {
+                SinhVien tmp = sv[i];
+                sv[i] = sv[j];
+                sv[j] = tmp;
+            }
+    //Xuất danh sách
+    printf("\nDanh sach sap xep:\n");
+    for (int i = 0; i < n; i++)
+        printf("Mssv: %s - Hovaten: %s - Diem: %.2f - Hocluc: %s\n",
+        sv[i].mssv,sv[i].hoten,sv[i].diem,sv[i].hocluc);
+}
+
+void chucNang9() {
+    //Nhập vào chưng trình
+    int a, b;
+    printf("Nhap 2 so (1-15):");
+    scanf("%d %d", &a, &b);
+    //Radom so ngau nhien
+    srand(time(NULL));
+    int r1 = rand() % 15 + 1;
+    int r2 = rand() % 15 + 1;
+    //Xuất kết quả
+    printf("KQ: %d %d\n", r1, r2);
+    int match = (a == r1) + (a == r2) + (b == r1) + (b == r2);
+    if (match == 0) printf("Khong trung so nao\n");
+    else if (match == 1) printf("Trung 1 so – giai NHI\n");
+    else printf("Trung 2 so – giai NHAT!\n");
+}
+
+//Khai báo struct
+typedef struct {
+    int tu;
+    int mau;
+}PhanSo;
+
+//Định nghĩa hàm UCLN
+int UCLN(int a, int b) {
+    if (b == 0) return a;
+    return UCLN(b, a % b);
+}
+
+//Hàm rút gọn
+PhanSo rutGon(PhanSo p) {
+    int u = UCLN(p.tu, p.mau);
+    p.tu /= u;
+    p.mau /= u;
+    return p;
+}
+
+void chucNang10() {
+    PhanSo a, b;
+    printf("Nhap phan so a (tu mau): ");
+    scanf("%d %d", &a.tu, &a.mau);
+    printf("Nhap phan so b (tu mau): ");
+    scanf("%d %d", &b.tu, &b.mau);
+    //Tính toán
+    PhanSo tong = {a.tu*b.mau + b.tu*a.mau, a.mau*b.mau};
+    PhanSo hieu = {a.tu*b.mau - b.tu*a.mau, a.mau*b.mau};
+    PhanSo tich = {a.tu*b.tu, a.mau*b.mau};
+    PhanSo thuong = {a.tu*b.mau, a.mau*b.tu};
+    tong = rutGon(tong);
+    hieu = rutGon(hieu);
+    tich = rutGon(tich);
+    thuong = rutGon(thuong);
+    //Xuất kết quả
+    printf("\nTong: %d/%d\n", tong.tu, tong.mau);
+    printf("Hieu: %d/%d\n", hieu.tu, hieu.mau);
+    printf("Tich: %d/%d\n", tich.tu, tich.mau);
+    printf("Thuong: %d/%d\n", thuong.tu, thuong.mau);
+}
+
 int main(){
     int choice;
     do{
@@ -193,17 +335,17 @@ int main(){
                 chucnang6();
                 break;
             case 7:
-            printf("Ban da chon chuc nang 7");
-            break;
+                chucnang7();
+                break;
             case 8:
-            printf("Ban da chon chuc nang 8");
-            break;
+                chucnang8();
+                break;
             case 9:
-            printf("Ban da chon chuc nang 9");
-            break;
+                chucNang9();
+                break;
             case 10:
-            printf("Ban da chon chuc nang 10");
-            break;
+                chucNang10();
+                break;
             default:
             printf("Chuc nang ban chon khong co, ban vui long chon lai chuc nang");
         }
