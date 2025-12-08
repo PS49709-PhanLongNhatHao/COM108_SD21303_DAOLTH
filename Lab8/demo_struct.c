@@ -6,7 +6,6 @@ struct SINHVIEN
     char hoten[50];
     float diem;
 };
-
 int main(){
 	struct SINHVIEN sv1;// goi dt sv1
 	struct SINHVIEN sv2={2, "Viet", 10};
@@ -16,7 +15,7 @@ int main(){
 		{3, "Lionel", 7}, 
 		{4, "CR7", 10}
 	};
-	struct SINHVIEN SD21303[38];
+	struct SINHVIEN SA21303[39];
     // xuat sinh vien
     printf("MASV: %d",sv2.MASV);
     printf("\nHoten: %s",sv2.hoten);
