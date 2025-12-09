@@ -207,40 +207,43 @@ void xepLoaiSV(float d, char *hl) {
 void chucnang8() {
     int n;
     printf("Hay nhap so sinh vien:");
-    scanf("%d", &n);
+    scanf("%d",&n);
     getchar();
     SinhVien sv[50];
-    for (int i = 0; i < n; i++){
+    for (int i=0;i<n;i++){
         printf("Hay nhap ma so sinh vien:");
         gets(sv[i].mssv);
         printf("Hay nhap ho va ten:");
         gets(sv[i].hoten);
-        sv[i].hoten[strcspn(sv[i].hoten, "\n")] = 0;
+        sv[i].hoten[strcspn(sv[i].hoten,"\n")] = 0;
         printf("Hay nhap diem:");
         scanf("%f",&sv[i].diem);
         getchar();
         xepLoaiSV(sv[i].diem, sv[i].hocluc);
     }
     // Sắp xếp giảm dần
-    for (int i = 0; i < n - 1; i++)
-        for (int j = i + 1; j < n; j++)
-            if (sv[i].diem < sv[j].diem) {
+    for (int i=0;i<n-1;i++){
+        for (int j=i+1;j<n;j++){
+            if (sv[i].diem < sv[j].diem){
                 SinhVien tmp = sv[i];
                 sv[i] = sv[j];
                 sv[j] = tmp;
-            }
+            } 
+        }
+    }
     //Xuất danh sách
     printf("\nDanh sach sap xep:\n");
-    for (int i = 0; i < n; i++)
+    for (int i=0;i<n;i++){
         printf("Mssv: %s - Hovaten: %s - Diem: %.2f - Hocluc: %s\n",
         sv[i].mssv,sv[i].hoten,sv[i].diem,sv[i].hocluc);
+    }
 }
 
 void chucNang9() {
     //Nhập vào chưng trình
     int a, b;
     printf("Nhap 2 so (1-15):");
-    scanf("%d %d", &a, &b);
+    scanf("%d %d",&a,&b);
     //Radom so ngau nhien
     srand(time(NULL));
     int r1 = rand() % 15 + 1;
@@ -260,39 +263,39 @@ typedef struct {
 }PhanSo;
 
 //Định nghĩa hàm UCLN
-int UCLN(int a, int b) {
+int UCLN(int a,int b) {
     if (b == 0) return a;
-    return UCLN(b, a % b);
+    return UCLN(b,a % b);
 }
 
 //Hàm rút gọn
 PhanSo rutGon(PhanSo p) {
-    int u = UCLN(p.tu, p.mau);
+    int u = UCLN(p.tu,p.mau);
     p.tu /= u;
     p.mau /= u;
     return p;
 }
 
 void chucNang10() {
-    PhanSo a, b;
+    PhanSo a,b;
     printf("Nhap phan so a (tu mau): ");
-    scanf("%d %d", &a.tu, &a.mau);
+    scanf("%d %d",&a.tu,&a.mau);
     printf("Nhap phan so b (tu mau): ");
-    scanf("%d %d", &b.tu, &b.mau);
+    scanf("%d %d",&b.tu,&b.mau);
     //Tính toán
-    PhanSo tong = {a.tu*b.mau + b.tu*a.mau, a.mau*b.mau};
-    PhanSo hieu = {a.tu*b.mau - b.tu*a.mau, a.mau*b.mau};
-    PhanSo tich = {a.tu*b.tu, a.mau*b.mau};
-    PhanSo thuong = {a.tu*b.mau, a.mau*b.tu};
+    PhanSo tong = {a.tu*b.mau + b.tu*a.mau,a.mau*b.mau};
+    PhanSo hieu = {a.tu*b.mau - b.tu*a.mau,a.mau*b.mau};
+    PhanSo tich = {a.tu*b.tu,a.mau*b.mau};
+    PhanSo thuong = {a.tu*b.mau,a.mau*b.tu};
     tong = rutGon(tong);
     hieu = rutGon(hieu);
     tich = rutGon(tich);
     thuong = rutGon(thuong);
     //Xuất kết quả
-    printf("\nTong: %d/%d\n", tong.tu, tong.mau);
-    printf("Hieu: %d/%d\n", hieu.tu, hieu.mau);
-    printf("Tich: %d/%d\n", tich.tu, tich.mau);
-    printf("Thuong: %d/%d\n", thuong.tu, thuong.mau);
+    printf("\nTong: %d/%d\n",tong.tu,tong.mau);
+    printf("Hieu: %d/%d\n",hieu.tu,hieu.mau);
+    printf("Tich: %d/%d\n",tich.tu,tich.mau);
+    printf("Thuong: %d/%d\n",thuong.tu,thuong.mau);
 }
 
 int main(){
